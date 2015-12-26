@@ -14,13 +14,15 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
             android:src="@drawable/done" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
             android:src="@drawable/favourite" />
 
     </LinearLayout>
