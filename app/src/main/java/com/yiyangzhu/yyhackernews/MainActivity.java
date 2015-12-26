@@ -21,11 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(getApplicationContext());
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         final List<Story> stories = new ArrayList<>();
         final ListViewAdapter adapter = new ListViewAdapter(this, stories);

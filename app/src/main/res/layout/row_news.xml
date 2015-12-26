@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -19,6 +20,7 @@
             android:src="@drawable/open" />
 
         <ImageButton
+            android:id="@+id/archive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -26,6 +28,7 @@
             android:src="@drawable/done" />
 
         <ImageButton
+            android:id="@+id/favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
