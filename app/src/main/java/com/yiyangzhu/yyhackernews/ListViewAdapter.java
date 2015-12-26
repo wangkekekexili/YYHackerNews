@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.List;
@@ -29,8 +30,9 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
+    public View generateView(final int position, ViewGroup parent) {
         View rowView = LayoutInflater.from(context).inflate(R.layout.row_news, null);
+        SwipeLayout swipeLayout = (SwipeLayout) rowView.findViewById(R.id.row_swipelayout);
         return rowView;
     }
 
