@@ -11,6 +11,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +37,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Integer> storyIds = dataSnapshot.getValue(List.class);
-                Collections.sort(storyIds);
+                Collections.sort(storyIds, new Comparator<Integer>() {
+                    @Override
+                    public int compare(Integer lhs, Integer rhs) {
+                        if (lhs > rhs) {
+                            return -1;
+                        } else if (lhs < rhs) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
                 for (Integer id : storyIds) {
                     Firebase storyFirebase = new Firebase("https://hacker-news.firebaseio.com/v0/item/"
                             + Integer.toString(id));
