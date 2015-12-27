@@ -10,8 +10,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.firebase.client.Firebase;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This adapter is created specifically for Hacker News and row_news layout.
@@ -39,7 +42,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(final int position, View convertView) {
-        Story story = stories.get(position);
+        final Story story = stories.get(position);
 
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
         TextView urlTextView = (TextView) convertView.findViewById(R.id.url);
@@ -49,12 +52,54 @@ public class ListViewAdapter extends BaseSwipeAdapter {
 
         ImageButton openButton = (ImageButton) convertView.findViewById(R.id.open);
         ImageButton archiveButton = (ImageButton) convertView.findViewById(R.id.archive);
-        ImageButton favouriteButton = (ImageButton) convertView.findViewById(R.id.favourite);
+        final ImageButton favouriteButton = (ImageButton) convertView.findViewById(R.id.favourite);
 
         openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(stories.get(position).getUrl())));
+            }
+        });
+
+        archiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // get id of current news at "position"
+                int id = stories.get(position).getId();
+
+                // remove from current stories
+                stories.remove(position);
+                notifyDataSetChanged();
+
+                // update firebase
+                Firebase archiveFirebase = new Firebase("https://yyhackernews.firebaseio.com/archive");
+                Map<String, Object> update = new HashMap<>();
+                update.put(Integer.toString(id), Integer.toString(id));
+                archiveFirebase.updateChildren(update);
+            }
+        });
+
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // get id of current news at "position"
+                int id = stories.get(position).getId();
+                String idString = Integer.toString(id);
+
+                // remove from current stories
+                stories.remove(position);
+                notifyDataSetChanged();
+
+                // update firebase
+                Firebase archiveFirebase = new Firebase("https://yyhackernews.firebaseio.com/archive");
+                Map<String, Object> update = new HashMap<>();
+                update.put(idString, idString);
+                archiveFirebase.updateChildren(update);
+
+                Firebase favouriteFirebase = new Firebase("https://yyhackernews.firebaseio.com/favourite");
+                update = new HashMap<>();
+                update.put(idString, idString);
+                favouriteFirebase.updateChildren(update);
             }
         });
 
