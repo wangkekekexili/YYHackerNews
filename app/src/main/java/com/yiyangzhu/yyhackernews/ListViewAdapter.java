@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.firebase.client.Firebase;
 
@@ -41,7 +42,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public void fillValues(final int position, View convertView) {
+    public void fillValues(final int position, final View convertView) {
         final Story story = stories.get(position);
 
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title);
@@ -76,6 +77,10 @@ public class ListViewAdapter extends BaseSwipeAdapter {
                 Map<String, Object> update = new HashMap<>();
                 update.put(Integer.toString(id), Integer.toString(id));
                 archiveFirebase.updateChildren(update);
+
+                // close surface
+                SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.row_swipelayout);
+                swipeLayout.close();
             }
         });
 
@@ -100,6 +105,10 @@ public class ListViewAdapter extends BaseSwipeAdapter {
                 update = new HashMap<>();
                 update.put(idString, idString);
                 favouriteFirebase.updateChildren(update);
+
+                // close surface
+                SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.row_swipelayout);
+                swipeLayout.close();;
             }
         });
 
