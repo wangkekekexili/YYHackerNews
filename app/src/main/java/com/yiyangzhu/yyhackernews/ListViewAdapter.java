@@ -108,7 +108,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
 
                 // close surface
                 SwipeLayout swipeLayout = (SwipeLayout) convertView.findViewById(R.id.row_swipelayout);
-                swipeLayout.close();;
+                swipeLayout.close(false);;
             }
         });
 
